@@ -36,17 +36,12 @@
     </div>
     <div class="container" >
       <div class="col-md-4">
-        <form method="post" action="/city">
-          <p><label>City:</label>
-            <input type="text" name="username">
+        <form method="post" action="/weather">
+          <p><label>City or Postcode:</label>
+            <input type="text" name="place">
           </p>
-          <p><input type="submit" value="Get Weather"></p>
-        </form>
-      </div>
-      <div class="col-md-4">
-        <form method="post" action="/code">
-          <p><label>Postcode:</label>
-            <input type="text" name="username">
+          <p><label>No. Days</label>
+            <input type="text" name="days">
           </p>
           <p><input type="submit" value="Get Weather"></p>
         </form>
