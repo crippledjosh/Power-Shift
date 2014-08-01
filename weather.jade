@@ -13,40 +13,46 @@ link(href='/css/starterTemp.css', rel='stylesheet')
   form(method='post', action='/weather')
     p
       label City or Postcode:
-      input(type='text', name='place')
+      input(type='text', name='place', required=true)
     p
       label No. Days
-      input(type='text', name='days')
+      input(type='number', name='days', max=5, min=1, required=true)
     p
       input(type='submit', value='Get Weather')
-
+  - var data = weatherData;
+  - data = JSON.parse(data.replace(/&quot;/ig,'"'));
+  - var weather = data['data']['weather'];
+  h4 Getting weather data for: 
+    = data['data']['request'][0]['query']
   .row
-    - var data = weatherData;
-    - data = JSON.parse(data.replace(/&quot;/ig,'"'));
-    - var weather = data['data']['weather'];
+   
     - for (var i = 0; i<weather.length;i++)
-        - console.log(weather[i])
+
+        - var url = weather[i]['weatherIconUrl'][0]['value']
+        - console.log(url)
         .col-md-2
-          p Day 
-           = i + 1
-          p Max Temperature: 
-            = weather[i]['tempMaxC']
-          p Min Temperature: 
-            = weather[i]['tempMinC']
-          p Weather: 
-            = weather[i]['weatherDesc'][0]['value']
-            
-          p Wind Direction: 
-            = weather[i]['winddirection']
-          p Wind Speed in kmph: 
-            = weather[i]['windspeedKmph']
+          .well
+            p Day 
+             = i + 1
+             img(src= url, alt='weather Icon', style= 'align-content: centre;')
+            p Max Temperature: 
+              != weather[i]['tempMaxC'] + "&deg;C"
+            p Min Temperature:  
+              != weather[i]['tempMinC'] + "&deg;C"
+            p Weather: 
+              = weather[i]['weatherDesc'][0]['value']
+
+            p Wind Direction: 
+              = weather[i]['winddirection']
+            p Wind Speed in kmph: 
+              = weather[i]['windspeedKmph']
     
 script  
   var data = "#{weatherData}"
   if(data!=""){
     data = JSON.parse(data.replace(/&quot;/ig,'"'));
   }
-  console.log(data.data.weather);
+  console.log(data);
   //  require(['socket.io', 'jquery'], function(io,$){
   //    var socket = io.connect('http://localhost:8080');
   //    socket.on('weather', function (data) {
