@@ -1,0 +1,55 @@
+!!! 5
+script(src='/js/libs/requirejs/require.js')
+script(src='requireconfig.js')
+link(rel='stylesheet', type='text/css', href='/css/bootstrap.css')
+link(rel='stylesheet', type='text/css', href='/css/bootstrap-theme.css')
+link(href='/css/starterTemp.css', rel='stylesheet')
+.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+  .container
+    .navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+        span.sr-only Toggle navigation
+.container
+  form(method='post', action='/weather')
+    p
+      label City or Postcode:
+      input(type='text', name='place')
+    p
+      label No. Days
+      input(type='text', name='days')
+    p
+      input(type='submit', value='Get Weather')
+
+  .row
+    - var data = weatherData;
+    - data = JSON.parse(data.replace(/&quot;/ig,'"'));
+    - var weather = data['data']['weather'];
+    - for (var i = 0; i<weather.length;i++)
+        - console.log(weather[i])
+        .col-md-2
+          p Day 
+           = i + 1
+          p Max Temperature: 
+            = weather[i]['tempMaxC']
+          p Min Temperature: 
+            = weather[i]['tempMinC']
+          p Weather: 
+            = weather[i]['weatherDesc'][0]['value']
+            
+          p Wind Direction: 
+            = weather[i]['winddirection']
+          p Wind Speed in kmph: 
+            = weather[i]['windspeedKmph']
+    
+script  
+  var data = "#{weatherData}"
+  if(data!=""){
+    data = JSON.parse(data.replace(/&quot;/ig,'"'));
+  }
+  console.log(data.data.weather);
+  //  require(['socket.io', 'jquery'], function(io,$){
+  //    var socket = io.connect('http://localhost:8080');
+  //    socket.on('weather', function (data) {
+  //      console.log(data);
+  //    });
+  //  });
