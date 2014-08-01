@@ -2,29 +2,38 @@ body {
   padding-top: 80px;
 }
 .starter-template {
-  padding: 40px 15px;
+  padding: 10px 15px;
   text-align: center;
-}
-
-.container{
-	padding: 2px 14px;
 }
 
 .panel-title{
 	a:link {color:#FF0000;}
 }
 
-td {border: 1px solid black;}
-
-table { border-collapse: collapse; border: 1px solid #000; width: 100%;}
-caption { font-size: larger; margin: 1em auto; }
-th, td { padding: 2px; }
-th, thead { background: #3881C0; color: #fff; border: 1px solid #000; }
 
 
-.enrolled{background:#dff0d8; color:#000;}
+.container{
+	width: 90%;
+}
 
+img {
+    float: right;
+}
+	
+.well{
+	color: white;
+	background: -webkit-linear-gradient(#3c3c3c 0%, #222222 100%); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#3c3c3c 0%, #222222 100%); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#3c3c3c 0%, #222222 100%); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#3c3c3c 0%, #222222 100%); /* Standard syntax */
+}
 
-.dataTables{
-    padding: 30px;
+.row {
+    display: table;
+}
+
+.row [class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
 }

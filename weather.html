@@ -24,11 +24,11 @@
     <div class="container" >
       <div class="col-md-4">
         <form method="post" action="/weather">
-          <p><label>City or Postcode:</label>
-            <input type="text" name="place">
+          <p><label>City or Postcode: </label>
+            <input type="text" name="place", required =true>
           </p>
-          <p><label>No. Days</label>
-            <input type="text" name="days">
+          <p><label>No. Days: </label>
+            <input type="number" name="days", max=5, min=1, required=true>
           </p>
           <p><input type="submit" value="Get Weather"></p>
         </form>

@@ -15,47 +15,40 @@ link(href='/css/starterTemp.css', rel='stylesheet')
       label City or Postcode:
       input(type='text', name='place', required=true)
     p
-      label No. Days
+      label 
+        = "No. Days (1-5): "
       input(type='number', name='days', max=5, min=1, required=true)
     p
       input(type='submit', value='Get Weather')
   - var data = weatherData;
-  - data = JSON.parse(data.replace(/&quot;/ig,'"'));
-  - var weather = data['data']['weather'];
-  h4 Getting weather data for: 
-    = data['data']['request'][0]['query']
-  .row
-   
-    - for (var i = 0; i<weather.length;i++)
+  - data = JSON.parse(data.replace(/&quot;/ig,'"'))['data'];
+  - var error = data['error'] != undefined
+  - if(!error)
+    - var weather = data['weather'];
+    h4 Getting weather data for: 
+      = data['request'][0]['query']
+    .row
+     
+      - for (var i = 0; i<weather.length;i++)
 
-        - var url = weather[i]['weatherIconUrl'][0]['value']
-        - console.log(url)
-        .col-md-2
-          .well
-            p Day 
-             = i + 1
-             img(src= url, alt='weather Icon', style= 'align-content: centre;')
-            p Max Temperature: 
-              != weather[i]['tempMaxC'] + "&deg;C"
-            p Min Temperature:  
-              != weather[i]['tempMinC'] + "&deg;C"
-            p Weather: 
-              = weather[i]['weatherDesc'][0]['value']
+          - var url = weather[i]['weatherIconUrl'][0]['value']
+          - console.log(url)
+          .col-md-2
+            .well
+              p Day 
+               = i + 1 + " " + weather[i]['date']
+               img(src= url, alt='weather Icon', style= 'align-content: centre;')
+              p Max Temperature: 
+                != weather[i]['tempMaxC'] + "&deg;C"
+              p Min Temperature:  
+                != weather[i]['tempMinC'] + "&deg;C"
+              p Weather: 
+                = weather[i]['weatherDesc'][0]['value']
 
-            p Wind Direction: 
-              = weather[i]['winddirection']
-            p Wind Speed in kmph: 
-              = weather[i]['windspeedKmph']
-    
-script  
-  var data = "#{weatherData}"
-  if(data!=""){
-    data = JSON.parse(data.replace(/&quot;/ig,'"'));
-  }
-  console.log(data);
-  //  require(['socket.io', 'jquery'], function(io,$){
-  //    var socket = io.connect('http://localhost:8080');
-  //    socket.on('weather', function (data) {
-  //      console.log(data);
-  //    });
-  //  });
+              p Wind Direction: 
+                = weather[i]['winddirection']
+              p Wind Speed in kmph: 
+                = weather[i]['windspeedKmph']
+  else
+    h4 
+      = data['error'][0]['msg']
