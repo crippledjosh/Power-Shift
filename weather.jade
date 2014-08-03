@@ -10,7 +10,7 @@ link(href='/css/starterTemp.css', rel='stylesheet')
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
         span.sr-only Toggle navigation
 .container
-  form(method='post', action='/weather')
+  form(method='get', action='/weather')
     p
       label City or Postcode:
       input(type='text', name='place', required=true)
@@ -20,6 +20,8 @@ link(href='/css/starterTemp.css', rel='stylesheet')
       input(type='number', name='days', max=5, min=1, required=true)
     p
       input(type='submit', value='Get Weather')
+
+      
   - if (weatherData != undefined)
     - data = JSON.parse(weatherData.replace(/&quot;/ig,'"'))['data'];
     - var error = data['error'] != undefined
