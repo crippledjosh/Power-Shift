@@ -20,35 +20,33 @@ link(href='/css/starterTemp.css', rel='stylesheet')
       input(type='number', name='days', max=5, min=1, required=true)
     p
       input(type='submit', value='Get Weather')
-  - var data = weatherData;
-  - data = JSON.parse(data.replace(/&quot;/ig,'"'))['data'];
-  - var error = data['error'] != undefined
-  - if(!error)
-    - var weather = data['weather'];
-    h4 Getting weather data for: 
-      = data['request'][0]['query']
-    .row
-     
-      - for (var i = 0; i<weather.length;i++)
+  - if (weatherData != undefined)
+    - data = JSON.parse(weatherData.replace(/&quot;/ig,'"'))['data'];
+    - var error = data['error'] != undefined
+    - if(!error)
+      - var weather = data['weather'];
+      h4 Getting weather data for: 
+        = data['request'][0]['query']
+      .row
+       
+        - for (var i = 0; i<weather.length;i++)
+            - var url = weather[i]['weatherIconUrl'][0]['value']
+            .col-md-2
+              .well
+                p Day 
+                 = i + 1 + " " + weather[i]['date']
+                 img(src= url, alt='weather Icon', style= 'align-content: centre;')
+                p Max Temperature: 
+                  != weather[i]['tempMaxC'] + "&deg;C"
+                p Min Temperature:  
+                  != weather[i]['tempMinC'] + "&deg;C"
+                p Weather: 
+                  = weather[i]['weatherDesc'][0]['value']
 
-          - var url = weather[i]['weatherIconUrl'][0]['value']
-          - console.log(url)
-          .col-md-2
-            .well
-              p Day 
-               = i + 1 + " " + weather[i]['date']
-               img(src= url, alt='weather Icon', style= 'align-content: centre;')
-              p Max Temperature: 
-                != weather[i]['tempMaxC'] + "&deg;C"
-              p Min Temperature:  
-                != weather[i]['tempMinC'] + "&deg;C"
-              p Weather: 
-                = weather[i]['weatherDesc'][0]['value']
-
-              p Wind Direction: 
-                = weather[i]['winddirection']
-              p Wind Speed in kmph: 
-                = weather[i]['windspeedKmph']
-  else
-    h4 
-      = data['error'][0]['msg']
+                p Wind Direction: 
+                  = weather[i]['winddirection']
+                p Wind Speed in kmph: 
+                  = weather[i]['windspeedKmph']
+    - else
+      h4 
+        = data['error'][0]['msg']
